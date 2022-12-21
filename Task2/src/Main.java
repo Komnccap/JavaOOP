@@ -23,116 +23,114 @@ import java.util.Random;
  */
 public class Main {
     public static void main(String[] args) {
-        Progen progen = new Progen("Павел","Алтухов","Мужской",5);
-        progen.outPutInfo();
-
-
+        System.out.println(starter());
 
     }
-    public static ArrayList<String> manNames(){
-        List<String> names = Arrays.asList("Евгений","Дмитрий","Алексей","Геннадий","Павел","Никита","Илья","Иван","Сергей");
-        ArrayList<String> manNames = new ArrayList<>();
-        for (int i = 0; i <names.size() ; i++) {
-            manNames.add(names.get(i));
+    public static String starter(){
+        String stoper = " ";
+        Random random = new Random();
+        int ranName = random.nextInt(namesList().size());
+        int ranName2;
+        int ranName3;
+        int randGender;
+        int ranLastname = random.nextInt(lastNamesList().size());
+        int dess = desNum();
+        Person tom = new Person(namesList().get(ranName), lastNamesList().get(ranLastname),dess);
+        tom.display();
+        for (int i = 0; i < dess; i++) {
+            ranName2 = random.nextInt(namesList().size());
+            ranName3 = random.nextInt(womanNamesList().size());
+            randGender = random.nextInt(2);
+            if (randGender == 1){
+                Employee sam = new Employee(namesList().get(ranName2), lastNamesList().get(ranLastname),desNum());
+                sam.display();
+                System.out.printf(" Является сыном %s", tom.getName());
+
+            }
+            else {
+                Employee sally = new Employee(womanNamesList().get(ranName3), lastNamesList().get(ranLastname)+"а",desNum());
+                sally.womanDisplay();
+                System.out.printf(" Является дочерью %s", tom.getName());
+            }
         }
-        return null;
+
+        return stoper;
     }
-
-}
-class Human {
-    String firstName,lastName,gender;
-    int numDescendant;
-
-    public Human(String firstName,String lastName,String gender, int numDescendant){
-
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.gender = gender;
-        this.numDescendant = numDescendant;
-
-    }
-
     /**
-     * Мужские имена
+     * Мужские Имена
      * @return
      */
-    public ArrayList<String> manNames(){
-        List<String> names = Arrays.asList("Евгений","Дмитрий","Алексей","Геннадий","Павел","Никита","Илья","Иван","Сергей");
-        ArrayList<String> manNames = new ArrayList<>();
-        for (int i = 0; i <names.size() ; i++) {
-            manNames.add(names.get(i));
+    public static List<String> namesList(){
+        List<String>names = Arrays.asList("Евгений","Павел","Иван","Алексей","Дмитрий","Сергей","Роман","Олег","Борис","Денис","Александр","Михаил","Артём");
+        ArrayList<String> namesList = new ArrayList<>();
+        for (int i = 0; i < names.size() ; i++) {
+            namesList.add(names.get(i));
         }
-        return manNames;
+        return namesList;
     }
     /**
      * Женские имена
      * @return
      */
-    public ArrayList<String> womanNames(){
-        List<String> names = Arrays.asList("Алёна","Полина","Кристина","Анна","Ольга","Екатерина","Оксана","Маргарита","Инна");
-        ArrayList<String> womanNames = new ArrayList<>();
-        for (int i = 0; i <names.size() ; i++) {
-            womanNames.add(names.get(i));
+    public static List<String> womanNamesList(){
+        List<String>names = Arrays.asList("Алёна","Ольга","Полина","Кристина","Оксана","Дарья","Елизаветта","Анастасия","Юлия","Софья","София","Мария","Ксения");
+        ArrayList<String> womanNamesList = new ArrayList<>();
+        for (int i = 0; i < names.size() ; i++) {
+            womanNamesList.add(names.get(i));
         }
-        return null;
+        return womanNamesList;
     }
     /**
      * Фамилии
      * @return
      */
-    public ArrayList<String> lastNames(){
-        List<String> lastName = Arrays.asList("Ляхов","Землемеров","Иванов","Пустуллин","Иаковлев","Романов","Алтухов","Лебедев");
-        ArrayList<String> lastNames = new ArrayList<>();
-        for (int i = 0; i <lastName.size() ; i++) {
-            lastNames.add(lastName.get(i));
+    public static List<String> lastNamesList(){
+        List<String>names = Arrays.asList("Сусанин","Алтухов","Романов","Пустуллин","Третьяков","Навиуллин","Матин","Гизматулин","Исаков","Арсеньев","Фомин");
+        ArrayList<String> lastNamesList = new ArrayList<>();
+        for (int i = 0; i < names.size() ; i++) {
+            lastNamesList.add(names.get(i));
         }
-        return lastNames;
+        return lastNamesList;
     }
-    public int getNumDes(){return numDescendant;}
-    /**
-     * Вывод в консоль
-     * @return
-     */
-    public String outPutInfo(){
-        System.out.printf("Прародитель\nИмя: %s Фамилия: %s \nПол - %s\nКоличество потомков - %d\n",firstName,lastName,gender,numDescendant);
-        return null;
-    }
-    public String outPutDesInfo(){
-
-        System.out.printf("Потомок\nИмя: %s Фамилия: %s \nПол - %s\nКоличество потомков - %d\n", firstName,lastName,gender,numDescendant);
-        return null;
-    }
-}
-class Progen extends Human{
-
-    public Progen(String firstName, String lastName, String gender, int numDescendant) {
-        super(firstName,lastName,gender,numDescendant);
-
-    }
-    public String progenitor(){
+    public static int desNum(){
         Random random = new Random();
-        int ranGen1 = random.nextInt(manNames().size()),ranGen2 = random.nextInt(lastNames().size());
-        int ranGen;
-
-        Progen father = new Progen(manNames().get(ranGen1), lastNames().get(ranGen2),"Мужской",3);
-
-        father.outPutInfo();
-        father.manNames();
-        for (int i = 0; i < father.getNumDes() ; i++) {
-            int nameNum = random.nextInt(father.manNames().size());
-            ranGen = random.nextInt(2);
-            if (ranGen == 1){
-                Human descendant = new Human(father.manNames().get(nameNum), father.lastName, "Мужской",0);
-                descendant.outPutDesInfo();
-            }
-            else {
-                Human descendant = new Human(father.womanNames().get(nameNum), father.lastName+"а", "Женский",0);
-                descendant.outPutDesInfo();
-            }
-        }
-        return progenitor();
+        int desNum = random.nextInt(5);
+        return desNum;
     }
 }
+class Person{
+    String name;
+    int numDescendants;
+    String lastName;
+    public String getName(){ return name; }
+    public Person(String name,String lastName, int numDescendants){
+        this.name=name;
+        this.lastName = lastName;
+        this.numDescendants = numDescendants;
+    }
+    public void display(){
+        System.out.printf("Прародитель\nИмя:%s Фамилия:%s Пол: Мужской Количество наследников:%d\n",name,lastName,numDescendants);
+    }
+}
+class Employee extends Person{
+    int numDescendants;
+    String lastName;
+    public Employee(String name,String lastName, int numDescendants){
+        super(name,lastName,numDescendants);
+        this.lastName = lastName;
+        this.numDescendants = numDescendants;
+    }
+    public void display(){
+        System.out.printf("\nИмя:%s Фамилия:%s Пол: Мужской Количество наследников:%d",name,lastName,numDescendants);
+
+    }
+    public void womanDisplay(){
+        System.out.printf("\nИмя:%s Фамилия:%s Пол: Женский Количество наследников:%d",name,lastName,numDescendants);
+
+    }
+}
+
+
 
 
 
